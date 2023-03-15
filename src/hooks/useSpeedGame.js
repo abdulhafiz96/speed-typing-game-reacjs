@@ -20,7 +20,10 @@ function useSpeedGame(counter = 15){
     }
 
     function decreaseTime() {
-        setTime(time => time - 1)
+        if (time > 1) {
+            setTime(time => time - 1)
+        }
+
     }
     function handleChange(e) {
         const {value} = e.target
