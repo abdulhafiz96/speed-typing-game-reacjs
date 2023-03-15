@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+
 import './App.css';
+import React from 'react'
+import useSpeedGame from "./hooks/useSpeedGame"; // custom hook imported so the logic could stay in different file
+
 
 function App() {
+   const {isRunning, text, textareaRef, handleChange, countDown, startGame, wordCount, time, decreaseTime, increaseTime} = useSpeedGame(10)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <h1>Speed Typing Game</h1>
+        <textarea
+            disabled={!isRunning}
+            value={text}
+            ref={textareaRef}
+            placeholder="Start Typing here"
+            onChange={handleChange}
+
+
+        />
+        {!isRunning && <h1>Selected Time: {time}</h1>}
+        {isRunning && <h4> Time Remaining: {countDown}</h4>}
+        <div className="buttons">
+            <button disabled={isRunning} onClick={decreaseTime}>Time -</button>
+            <button disabled={isRunning} onClick={startGame}>Start</button>
+            <button disabled={isRunning} onClick={increaseTime}>Time +</button>
+        </div>
+        <h1>words count: {wordCount}</h1>
     </div>
   );
 }
